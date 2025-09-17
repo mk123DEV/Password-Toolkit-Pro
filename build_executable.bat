@@ -21,7 +21,7 @@ echo.
 echo =======================================================
 echo  Compilation terminee !
 echo.
-echo  Votre executable 'PasswordToolkitPro.exe' se trouve
+echo  mon executable 'PasswordToolkitPro.exe' se trouve
 echo  dans le dossier 'dist'.
 echo =======================================================
 echo.
