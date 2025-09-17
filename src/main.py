@@ -14,20 +14,18 @@ import core_logic
 # --- Étape 1: Créer un "Worker" qui peut s'exécuter sur un autre thread ---
 
 class WorkerSignals(QObject):
-    """Définit les signaux disponibles pour un worker."""
+    
     result = Signal(int) # Signal qui transportera le résultat (un entier : pwned_count)
 
 class PwnedAPIChecker(QRunnable):
-    """
-    Worker qui exécute la vérification sur l'API HIBP dans un thread séparé.
-    """
+ 
     def __init__(self, password):
         super().__init__()
         self.password = password
         self.signals = WorkerSignals()
 
     def run(self):
-        """La logique qui s'exécute sur le thread secondaire."""
+  
         count = core_logic.verifier_mot_de_passe_pwned(self.password)
         self.signals.result.emit(count) # On émet le signal avec le résultat
 
@@ -40,7 +38,7 @@ class MainWindow(QMainWindow):
         self.ui = MainWindowUI()
         self.ui.setup_ui(self)
         
-        # Le QThreadPool gère notre pool de threads
+        # Le QThreadPool gère le pool de threads
         self.thread_pool = QThreadPool()
 
         # Le timer est toujours utile pour le "debouncing"
@@ -59,15 +57,13 @@ class MainWindow(QMainWindow):
         self.ui.copierButton.clicked.connect(self.copy_to_clipboard)
         self.ui.analyseLineEdit.textChanged.connect(self.analysis_timer.start) # La frappe redémarre le timer
 
-    # --- Fonctions de logique ---
+    #  Fonctions de logique 
 
     def trigger_password_analysis(self):
-        """
-        Déclenche l'analyse locale (rapide) et lance le worker pour l'analyse en ligne (lente).
-        """
+
         password = self.ui.analyseLineEdit.text()
         
-        # 1. On fait l'analyse locale immédiatement, car elle est rapide
+        # 1. ici j'ai fait l'analyse locale immédiatement, car elle est rapide
         analyse_locale = core_logic.analyser_force_mot_de_passe(password)
         self.update_ui_with_local_analysis(analyse_locale)
 
@@ -77,7 +73,7 @@ class MainWindow(QMainWindow):
         self.thread_pool.start(worker) # On donne le worker au QThreadPool pour exécution
 
     def update_ui_with_local_analysis(self, analyse_locale):
-        """Met à jour l'UI avec les résultats de l'analyse zxcvbn (rapide)."""
+
         score = analyse_locale['score']
         self.ui.forceProgressBar.setValue(score)
 
@@ -103,9 +99,7 @@ class MainWindow(QMainWindow):
         self.ui.feedbackTextEdit.setText(final_feedback)
 
     def update_ui_with_pwned_result(self, pwned_count):
-        """
-        Met à jour l'UI une fois que le worker a terminé et renvoyé le résultat.
-        """
+     
         if pwned_count > 0:
             self.ui.forceLabel.setText("Force : COMPROMIS !")
             self.ui.forceProgressBar.setValue(0)
