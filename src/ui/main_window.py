@@ -8,10 +8,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 class MainWindowUI:
-    """
-    Cette classe gère uniquement la création et la disposition
-    des widgets de la fenêtre principale.
-    """
+
     def setup_ui(self, main_window: QMainWindow):
         # --- Configuration de la fenêtre principale ---
         main_window.setWindowTitle("Password Toolkit Pro")
@@ -31,7 +28,7 @@ class MainWindowUI:
         main_layout.addWidget(analyzer_groupbox)
 
     def create_generator_groupbox(self) -> QGroupBox:
-        """Crée la section 'Générateur de Mot de Passe'."""
+      
         groupbox = QGroupBox("Générateur de Mot de Passe")
         layout = QVBoxLayout() # Layout vertical pour empiler les widgets
         
