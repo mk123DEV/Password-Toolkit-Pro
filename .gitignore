@@ -1,0 +1,20 @@
+# Fichiers et dossiers d'environnement virtuel Python
+venv/
+.venv/
+env/
+.env
+
+# Fichiers de cache et temporaires Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Fichiers générés par PyInstaller (pour créer le .exe)
+build/
+dist/
+*.spec
+
+# Fichiers spécifiques à l'IDE (optionnel mais propre)
+.idea/
+.vscode/
